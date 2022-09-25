@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.0"
+      version = "~> 4.1"
     }
   }
 }
@@ -14,9 +14,9 @@ provider "aws" {
 }
 
 resource "aws_instance" "test" {
-  instance_type = var.instance_type
+  instance_type = var.free
   ami = data.aws_ami.ubuntu.id
-  
+  count = 1
 }
 
 data "aws_ami" "ubuntu" {
@@ -24,7 +24,7 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-22.04-amd64-server-*"]
   }
 
   filter {
